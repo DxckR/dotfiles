@@ -1,0 +1,200 @@
+# SWAY CONFIG
+
+
+# Variables
+
+set $mod Mod4
+set $left h
+set $down j
+set $up k
+set $right l
+set $menu wofi --show drun -i -H 500 -W 450 -I -O alphabetical
+set $term alacritty
+
+floating_modifier $mod normal
+default_border pixel 2
+client.focused #ffffff #ffffff #000000 #fc2d2d
+client.unfocused #000000 #000000 #ffffff
+gaps inner 10
+gaps outer 0
+
+# No gaps if there's only 1 window
+# smart_gaps on
+
+# Hides the borders if theres only 1 window
+#hide_edge_borders smart
+
+# Output configuration
+
+output * bg ~/.config/sway/wall fill
+output eDP-1 resolution 2560x1600 scale 1
+
+# Input configuration
+# Interal Trackpad
+input "2:14:ETPS/2_Elantech_Touchpad" {
+  dwt enabled
+  tap enabled
+}
+
+# Key bindings
+
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+Return exec $term -a float
+bindsym $mod+q kill
+bindsym $mod+d exec $menu
+bindsym $mod+Shift+c reload
+bindsym $mod+w exec qutebrowser
+bindsym $mod+shift+w exec firefox
+bindsym $mod+c exec flatpak run io.github.kotatogram
+bindsym $mod+r exec $term -a float ranger
+bindsym $mod+Shift+r exec nautilus
+bindsym $mod+shift+m exec /home/plague/Documents/Scripts/sourceswitch
+bindsym mod1+shift+w exec /home/plague/Documents/Scripts/setbg -s
+bindsym $mod+shift+minus exec brightnessctl s 1%-
+bindsym $mod+shift+equal exec brightnessctl s +1%
+bindsym $mod+minus exec ./.local/bin/pulsemixer --change-volume -1 
+bindsym $mod+equal exec ./.local/bin/pulsemixer --change-volume +1 
+bindsym $mod+m exec ./.local/bin/pulsemixer --toggle-mute 
+bindsym $mod+p exec ~/Documents/Scripts/screenshot -f
+bindsym $mod+shift+p exec ~/Documents/Scripts/screenshot -s
+bindsym $mod+Shift+Escape exec "swaylock -f -F -e -i ~/.config/sway/lock -k -l -s fill --font IBM Plex Mono"
+bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Moving around:
+
+# Move your focus around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+#resize
+bindsym $mod+mod1+h exec swaymsg resize shrink right 10px || swaymsg resize grow left 10px
+bindsym $mod+mod1+j exec swaymsg resize grow down 10px || swaymsg resize shrink up 10px
+bindsym $mod+mod1+k exec swaymsg resize shrink down 10px || swaymsg resize grow up 10px
+bindsym $mod+mod1+l exec swaymsg resize grow right 10px || swaymsg resize shrink left 10px
+
+# Workspaces:
+
+# Switch to workspace
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Layout stuff:
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# Switch the current container between different layout styles
+bindsym $mod+t layout toggle split
+bindsym $mod+y layout tabbed
+bindsym $mod+u layout stacking
+
+# Make the current focus fullscreen
+bindsym $mod+f fullscreen
+
+# Toggle the current focus between tiling and floating mode
+bindsym $mod+space floating toggle
+
+# Swap focus between the tiling area and the floating area
+bindsym $mod+Shift+space focus mode_toggle
+
+# Move focus to the parent container
+bindsym $mod+a focus parent
+
+# Sticky
+bindsym $mod+s sticky toggle
+# Scratchpad:
+
+bindsym $mod+bracketleft move scratchpad
+bindsym $mod+bracketright scratchpad show 
+
+
+# Resizing containers:
+
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+t mode "resize"
+
+
+# Media Keys
+bindsym XF86AudioLowerVolume exec ./.local/bin/pulsemixer --change-volume -5
+bindsym XF86AudioRaiseVolume exec ./.local/bin/pulsemixer --change-volume +5
+bindsym XF86AudioMute exec ./.local/bin/pulsemixer --toggle-mute 
+
+bindsym XF86MonBrightnessUp exec brightnessctl s +5%
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+
+bindsym XF86KbdBrightnessDown exec brightnessctl -d apple::kbd_backlight s 10%-
+bindsym XF86KbdBrightnessUp exec brightnessctl -d apple::kbd_backlight s 10%+
+
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+
+
+# Rules
+for_window [app_id="float"] floating enable;
+for_window [app_id="mpv"] floating enable; resize set 700 300
+for_window [app_id="org.gnome.Calculator"] floating enable;
+for_window [app_id="org.kde.kdenlive"] floating enable;
+for_window [app_id="gcolor3"] floating enable;
+
+exec_always {
+	}
+
+bar {
+	swaybar_command waybar
+    }
+}
+
+exec autotiling
+
+include /etc/sway/config.d/*

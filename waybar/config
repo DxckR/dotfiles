@@ -1,0 +1,100 @@
+{
+ 	"layer": "top", 		// Waybar at top layer
+	"position": "top", 		// Waybar position (top|bottom|left|right)
+	"height": 35, 			// Waybar height (to be removed for auto height)
+	"spacing": 5, 			// Gaps between modules (4px)
+    	"margin-top": 10,
+    	"margin-bottom":0, 
+	"modules-center": ["sway/workspaces", "sway/mode","clock", "battery", "pulseaudio", "tray"],
+    
+// Modules configuration
+    
+	"sway/workspaces": {
+     		"disable-scroll": true,
+     		"format": "{name}",
+	},
+         
+
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>"
+    	},
+    	
+    	
+	"tray": {
+		// "icon-size": 21,
+		"spacing": 10
+    	},
+    	
+    	
+	"clock": {
+        	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format": "{:%Y %B %d %A %I:%M %p}",
+    	},
+    	
+    	
+    	"temperature": {
+        	
+        	"critical-threshold": 80,
+        	"format-critical": "CRIT {temperatureC}°C",
+        	"format": "TEMP {temperatureC}°C",
+        	},
+    	
+    	
+	"backlight": {
+        	"format": "BR {percent}%",
+		"on-scroll-up": "brightnessctl s +2%",
+		"on-scroll-down": "brightnessctl s 2%-",
+		"scroll-step": 1,
+		"smooth-scrolling-threshold": 1,
+    	},
+
+
+  	"battery": {
+        	"states": {
+        	 	"good": 95,
+           		"warning": 30,
+           		"critical": 15
+       		 },
+     		"format": "BAT {capacity}%",
+        	"format-charging": "BAT {capacity}%",
+        	"format-plugged": "BAT {capacity}%",
+        	"format-critical": "CRIT {capacity}%",
+        	"format-alt": "{time}",
+        	"interval": 1    	
+    	},
+    	
+    	
+	"network": {
+        	"format-wifi": "WIFI {essid}",
+        	"format-ethernet": "ETH {ipaddr}/{cidr}",
+        	"tooltip-format": "{ifname} via {gwaddr}",
+        	"format-linked": "{ifname} (No IP)",
+        	"format-disconnected": "DEAD",
+        	
+    	},
+	"pulseaudio": {
+		"scroll-step": 1,
+        	"format": "VOL {volume}% MIC {format_source}", 
+        	"format-muted": "VOL MUTE MIC {format_source}",
+		"format-source": "{volume}%",
+		"format-source-muted": "MUTE",
+        	"on-click": "foot -- /home/plague/.local/bin/pulsemixer"
+        	},
+    	
+    	//custom
+    	
+    	"custom/memory": { 
+		"exec": "free -h | grep 'Mem' | cut -d' ' -f19",
+        	"format": "RAM {}",
+        	"interval": 3,
+		"on-click": "foot -a float -w 1500x1000 -- sudo btop",
+	},
+
+	"custom/netspeed": {
+		"exec": "/home/plague/Documents/Scripts/netspeed",
+		"format": "{}",
+		"interval": 1,
+	},
+
+}
+

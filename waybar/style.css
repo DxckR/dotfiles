@@ -1,0 +1,149 @@
+* {
+    font-family: IBM Plex Mono;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+#clock,
+#battery,
+#temperature,
+#custom-memory,
+#custom-netspeed,
+#backlight,
+#network,
+#pulseaudio,
+#tray,
+#mode {
+	padding: 0 10px;
+	color: #ffffff;
+	background-color: #1E1E2F;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: #ffffff; 
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+#workspaces button {
+    margin:  0 2px 0 2px;
+    padding: 0 7px;
+    background-color: #181825;
+    color: #ffffff;   
+}
+
+#workspaces button.focused {
+    background-color: #1E1E3F;
+    color: white;
+    border: 3px solid #1E1E3F;
+}
+
+#workspaces button.urgent {
+    background-color: red;
+    color: white;
+}
+
+#mode {
+    background-color: #1E1E2F;
+}
+
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    background-color: #1E1E2F;
+}
+
+#battery {
+    background-color:#1E1E2F;
+    color: white;
+}
+
+#battery.charging, #battery.plugged {
+    border: 3px solid #1E1E2F;
+    color: white;
+    background-color: green;
+}
+
+#battery.warning:not(.charging) {
+    background-color: orange;
+    border: 3px solid #1E1E2F;
+    color: black;
+    }
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: red;
+    border: 3px solid #1E1E2F;
+    color:white;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: #000000;
+}
+
+#backlight {
+    background-color: black;
+}
+
+#network {
+    background-color: black;
+}
+
+#network.disconnected {
+    background-color: red;
+     border: 3px solid black;
+}
+
+#pulseaudio {
+    /* background-color: #f1c40f; */
+    background-color: #1E1E2F;
+    color: #ffffff;
+     border: 3px solid #1E1E2F;
+}
+
+#pulseaudio.muted {
+    background-color: blue;
+    color: white;
+}
+
+#temperature {
+    background-color: black;
+}
+
+#temperature.critical {
+    background-color: red;
+    color: white;
+    border: 3px solid black;
+}
+
+#tray {
+    background-color: #1E1E2F;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
